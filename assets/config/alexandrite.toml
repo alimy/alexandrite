@@ -1,0 +1,7 @@
+[application]
+name = "alexandrite"
+authors = ["Michael Li <alimy@gility.net>"]
+description = "alternative cconfigrate registry"
+
+[Server]
+addr = ":8080"

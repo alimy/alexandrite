@@ -15,9 +15,8 @@ import (
 
 //go:generate go-bindata -nomemcopy -pkg=assets -ignore=README.md -prefix=../../assets/static -debug=false -o=assets_gen.go ../../assets/static/...
 
-/*
-	This file is a modified version of https://github.com/go-bindata/go-bindata/pull/18.
-*/
+// The code below is a modified version of https://github.com/go-bindata/go-bindata/pull/18.
+// Copy from https://github.com/gogs/gogs.
 
 type fileInfo struct {
 	name string
