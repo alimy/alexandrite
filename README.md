@@ -1,5 +1,5 @@
-## mir-examples
-just a simple mir's examples for explain how to use mir in your project.
+## Alexandrite
+Alexandrite is an alternative rust cartes registry like Alexandrie but implement in Golang.
 
 #### Usage
 ```bash

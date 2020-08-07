@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{{ crate.name }} - {{ instance.title }}</title>
+    {{> partials/head}}
+    <style>
+        .hero {
+            width: 100%;
+        }
+
+        .hero-content-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            padding: 40px 10px 10px;
+        }
+
+        .hero-title {
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+        }
+
+        .hero-yank {
+            display: inline;
+            font-size: 13px;
+            vertical-align: 30%;
+            border: 3px solid #F52;
+            padding: 1px 6px;
+            border-radius: 7px;
+            color: #F52;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .keywords-container,
+        .badges-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .keyword {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .keyword:first-child {
+            margin-left: 0;
+        }
+
+        .badges-container {
+            margin-top: 5px;
+        }
+
+        .badge {
+            margin-left: 5px;
+        }
+
+        .badge:first-child {
+            margin-left: 0;
+        }
+
+        .badge-img {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stats-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding-top: 10px;
+        }
+
+        .stats {
+            align-items: center;
+            justify-content: center;
+            white-space: normal;
+            padding: 10px 0;
+            display: flex;
+            flex-direction: column;
+            width: 1400px;
+            border-top: 2px solid var(--fg-color);
+            border-bottom: 2px solid var(--fg-color);
+        }
+
+        .stat {
+            font-size: 17px;
+        }
+
+        .stat-list {
+            display: grid;
+            grid-template-columns: min-content min-content;
+        }
+
+        .stat-list-label {
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .stat-list-value {
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+        .stat-badge {
+            display: flex;
+            align-items: center;
+            margin-top: 2px;
+        }
+
+        .crate-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .crate-content {
+            width: 1400px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        @media (max-width: 1400px) {
+            .crate-content {
+                width: 100%;
+            }
+
+            .stats {
+                width: 90%;
+            }
+
+            .hero-title, .hero-subtitle {
+                max-width: 90%;
+            }
+        }
+
+        .readme {
+            width: 100%;
+        }
+
+        .readme pre, .readme code {
+            font-family: 'Fira Code', monospace;
+            font-weight: 500;
+            font-variant: contextual;
+            font-size: 14px;
+        }
+
+        .readme pre {
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .readme code {
+            color: var(--bg-color);
+            background-color: var(--fg-color);
+            padding: 2px 5px;
+            border-radius: 2px;
+        }
+
+        .readme h1 code,
+        .readme h2 code,
+        .readme h3 code,
+        .readme h4 code,
+        .readme h5 code,
+        .readme h6 code {
+            font-size: inherit;
+        }
+
+        .readme a {
+            color: #25F;
+            font-weight: bold;
+        }
+
+        .readme a:hover {
+            text-decoration: underline;
+        }
+
+        .readme h1,
+        .readme h2 {
+            margin: 0;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--dark-bg-color);
+        }
+
+        .readme h1.header::before,
+        .readme h2.header::before,
+        .readme h3.header::before,
+        .readme h4.header::before,
+        .readme h5.header::before,
+        .readme h6.header::before {
+            display: block;
+            margin-top: -70px;
+            height: 70px;
+            visibility: hidden;
+            content: " ";
+        }
+
+        .readme a.permalink {
+            color: inherit;
+            text-decoration: inherit;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .readme h1,
+            .readme h2 {
+                border-bottom: 1px solid var(--darker-fg-color);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {{> partials/navbar}}
+    <div class="hero">
+        <div style="height: 50px"></div>
+        <div class="hero-content-container">
+            <div class="hero-title">
+                {{ crate.name }} #{{ crate.version }}
+                {{#if crate.yanked}}
+                <div class="hero-yank">YANKED</div>
+                {{/if}}
+            </div>
+            <div class="hero-subtitle">{{ crate.description }}</div>
+        </div>
+    </div>
+    {{#if keywords}}
+    <div class="keywords-container">
+        {{#each keywords}}
+        <div class="keyword">#{{ this.name }}</div>
+        {{/each}}
+    </div>
+    {{/if}}
+    {{#if badges}}
+    <div class="badges-container">
+        {{#each badges}}
+        <div class="badge">
+            {{#if this.href}}
+            <a href="{{ this.href }}">
+            {{/if}}
+                <div class="badge-img">
+                    <img src="{{ this.src }}" alt="{{ this.alt }}" title="{{ this.alt }}">
+                </div>
+            {{#if this.href}}
+            </a>
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+    <div class="stats-container">
+        <div class="stats">
+            <div class="stats-block">
+                <div class="stat stat-list">
+                    {{#each authors}}
+                    <div class="stat-list-label">
+                        {{#if @first}}Owned by{{else}}and{{/if}}&nbsp;
+                    </div>
+                    <div class="stat-list-value">{{ this }}</div>
+                    {{/each}}
+                </div>
+                <div class="stat">Downloaded&nbsp;<b>{{ crate.downloads }}</b>&nbsp;times</div>
+                <div class="stat">Created on&nbsp;<b>{{ crate.created_at }}</b></div>
+                <div class="stat">Last updated on&nbsp;<b>{{ crate.updated_at }}</b></div>
+                {{#if crate.repository}}
+                <div class="stat">Link to&nbsp;<b><a href="{{ crate.repository }}">Repository</a></b></div>
+                {{/if}}
+                {{#if crate.documentation}}
+                <div class="stat">Link to&nbsp;<b><a href="{{ crate.documentation }}">Documentation</a></b></div>
+                {{/if}}
+                {{#if crate.homepage}}
+                <div class="stat">Link to&nbsp;<b><a href="{{ crate.homepage }}">Homepage</a></b></div>
+                {{/if}}
+                {{#if categories}}
+                <div class="stat stat-list">
+                    {{#each categories}}
+                    <div class="stat-list-label">
+                        {{#if @first}}Part of{{else}}and{{/if}}&nbsp;
+                    </div>
+                    <div class="stat-list-value">{{ this }}</div>
+                    {{/each}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div class="crate-container">
+        <div class="crate-content">
+            <div class="readme">
+                {{#if rendered_readme}}
+                {{{ rendered_readme }}}
+                {{else}}
+                {{ crate.description }}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

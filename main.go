@@ -2,22 +2,28 @@ package main
 
 import (
 	"log"
+	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/alimy/alexandrite/mirc/gen/api"
+	"github.com/alimy/alexandrite/servants"
+	"github.com/gorilla/mux"
+
+	v1 "github.com/alimy/alexandrite/mirc/gen/api/api/v1"
 )
 
 func main() {
-	e := gin.Default()
+	r := mux.NewRouter()
 
-	// register servants to gin
-	registerServants(e)
+	// register servants to chi
+	registerServants(r)
 
 	// start servant service
-	if err := e.Run(); err != nil {
+	if err := http.ListenAndServe(":8080", r); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func registerServants(e *gin.Engine) {
-	// TODO: register routes to e
+func registerServants(r *mux.Router) {
+	api.RegisterFrontendServant(r, servants.NewFrontend())
+	v1.RegisterRegistryServant(r, servants.NewRegistry())
 }

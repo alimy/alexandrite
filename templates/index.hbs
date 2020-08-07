@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{> partials/head}}
+    <style>
+        .hero {
+            width: 100%;
+        }
+
+        .hero-content-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            padding: 40px 10px 10px;
+        }
+
+        .hero-title {
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .hero-links {
+            margin-top: 7px;
+            display: flex;
+        }
+
+        .hero-link {
+            display: block;
+            border-radius: 5px;
+            border: solid 1.5px var(--fg-color);
+            margin-left: 5px;
+            padding: 2px 8px;
+        }
+
+        .hero-link:first-child {
+            margin-left: 0;
+        }
+
+        .hero-link:hover,
+        .hero-link:focus {
+            background-color: var(--fg-color);
+            color: var(--bg-color);
+        }
+
+        .stats-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding-top: 10px;
+        }
+
+        .stats {
+            align-items: center;
+            justify-content: center;
+            white-space: normal;
+            padding: 10px 0;
+            display: flex;
+            flex-direction: column;
+            width: 1400px;
+            border-top: 2px solid var(--fg-color);
+            border-bottom: 2px solid var(--fg-color);
+        }
+
+        .stat {
+            font-size: 17px;
+        }
+
+        .content-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+        }
+
+        .content-grid {
+            width: 1400px;
+            padding: 10px;
+            display: grid;
+            grid-template-rows: 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 1400px) {
+            .content-grid {
+                width: 100%;
+            }
+
+            .stats {
+                width: 90%;
+            }
+        }
+
+        .card-content {
+            flex-grow: 1;
+        }
+
+        .most-downloaded,
+        .last-updated {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0 10px;
+        }
+
+        .most-downloaded {
+            border-right: 1px solid var(--fg-color);
+        }
+
+        .last-updated {
+            border-left: 1px solid var(--fg-color);
+        }
+
+        .most-downloaded-title,
+        .last-updated-title {
+            width: 100%;
+            text-align: center;
+            font-size: 21px;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+
+        .most-downloaded-list,
+        .last-updated-list {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .most-downloaded-entries,
+        .last-updated-entries {
+            width: 100%;
+            counter-reset: rank;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .most-downloaded-entry::before,
+        .last-updated-entry::before {
+            counter-increment: rank;
+            content: counter(rank) ". ";
+        }
+
+        .most-downloaded-entry,
+        .last-updated-entry {
+            width: 100%;
+            color: var(--fg-color);
+            background-color: var(--lighter-bg-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.15s;
+            margin-top: 10px;
+        }
+
+        .most-downloaded-entry:first-child,
+        .last-updated-entry:first-child {
+            margin-top: 0;
+        }
+
+        .most-downloaded-entry:hover,
+        .most-downloaded-entry:focus,
+        .last-updated-entry:hover,
+        .last-updated-entry:focus {
+            transform: scale(1.03);
+        }
+
+        .most-downloaded-empty,
+        .last-updated-empty {
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .card-footer {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .card-footer-button {
+            width: 100%;
+            text-decoration: none;
+            text-align: center;
+            padding: 7px 10px;
+            font-weight: bold;
+            font-size: 20px;
+            display: block;
+            border-radius: 30px;
+            color: var(--fg-color);
+            background-color: var(--light-bg-color);
+            transition: transform 0.15s;
+        }
+
+        .card-footer-button:hover,
+        .card-footer-button:focus {
+            transform: scale(1.03);
+        }
+
+        @media (max-width: 1000px) {
+            .content-grid {
+                grid-template-rows: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+            }
+
+            .most-downloaded-entries,
+            .last-updated-entries,
+            .card-footer {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .most-downloaded,
+            .last-updated {
+                border-right: none;
+                border-left: none;
+            }
+
+            .last-updated {
+                padding-top: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {{> partials/navbar}}
+    <div class="hero">
+        <div style="height: 50px"></div>
+        <div class="hero-content-container">
+            <div class="hero-title">Welcome to {{ instance.title }} !</div>
+            <div class="hero-subtitle">{{ instance.description }}</div>
+            {{#if instance.links}}
+            <div class="hero-links">
+                {{#each instance.links}}
+                <a class="hero-link" href="{{ this.href }}">{{ this.name }}</a>
+                {{/each}}
+            </div>
+            {{/if}}
+        </div>
+    </div>
+    <div class="stats-container">
+        <div class="stats">
+            <div class="stats-block">
+                <div class="stat"><b>{{ crate_count }}</b>&nbsp;crates stored</div>
+                <div class="stat"><b>{{ total_downloads }}</b>&nbsp;total downloads</div>
+            </div>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="content-grid">
+            <div class="most-downloaded">
+                <div class="most-downloaded-title">Most downloaded</div>
+                <div class="most-downloaded-entries">
+                    {{#if most_downloaded}}
+                    {{#each most_downloaded}}
+                    <a class="most-downloaded-entry elevated" href="/crates/{{ this.name }}">
+                        <b>{{ this.name }}</b>: {{ this.downloads }} downloads
+                    </a>
+                    {{/each}}
+                    {{else}}
+                    <div class="most-downloaded-empty">Empty list.</div>
+                    {{/if}}
+                </div>
+                <div class="card-footer">
+                    <a class="card-footer-button elevated" href="/most-downloaded">See more...</a>
+                </div>
+            </div>
+            <div class="last-updated">
+                <div class="last-updated-title">Last updated</div>
+                <div class="last-updated-entries">
+                    {{#if last_updated}}
+                    {{#each last_updated}}
+                    <a class="last-updated-entry elevated" href="/crates/{{ this.name }}">
+                        <b>{{ this.name }}</b>: {{ this.updated_at }}
+                    </a>
+                    {{/each}}
+                    {{else}}
+                    <div class="last-updated-empty">Empty list.</div>
+                    {{/if}}
+                </div>
+                <div class="card-footer">
+                    <a class="card-footer-button elevated" href="/last-updated">See more...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

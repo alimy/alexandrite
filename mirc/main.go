@@ -8,7 +8,6 @@ import (
 
 	_ "github.com/alimy/alexandrite/mirc/routes"
 	_ "github.com/alimy/alexandrite/mirc/routes/v1"
-	_ "github.com/alimy/alexandrite/mirc/routes/v2"
 )
 
 //go:generate go run main.go
@@ -16,7 +15,8 @@ func main() {
 	log.Println("generate code start")
 	opts := Options{
 		RunMode(InSerialMode),
-		GeneratorName(GeneratorGin),
+		GeneratorName(GeneratorMux),
+		Cleanup(true),
 		SinkPath("./gen"),
 	}
 	if err := Generate(opts); err != nil {

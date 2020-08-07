@@ -1,0 +1,76 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="description" content="{{ instance.description }}">
+<link rel="shortcut icon" type="image/x-icon" href="{{ instance.favicon }}">
+<link rel="stylesheet" href="/assets/icons.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500|Fira+Code:500">
+<title>{{ instance.title }}</title>
+<style>
+    html,
+    body {
+        width: 100%;
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: "Fira Sans", sans-serif;
+        color: var(--fg-color);
+
+        --lighter-fg-color: #505050;
+        --light-fg-color: #333;
+        --fg-color: #272727;
+        --dark-fg-color: #202020;
+        --darker-fg-color: #171717;
+        --secondary-fg-color: #888;
+
+        --lighter-bg-color: #FFF;
+        --light-bg-color: #F0F0F0;
+        --bg-color: #EEE;
+        --dark-bg-color: #D0D0D0;
+        --darker-bg-color: #C0C0C0;
+        --darkest-bg-color: #A0A0A0;
+
+        --danger-fg-color: #FFF;
+        --danger-bg-color: #D33;
+        --success-fg-color: #FFF;
+        --success-bg-color: #282;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        html {
+            --lighter-fg-color: #FFF;
+            --light-fg-color: #F0F0F0;
+            --fg-color: #E0E0E0;
+            --dark-fg-color: #A0A0A0;
+            --darker-fg-color: #888;
+
+            --lighter-bg-color: #3F3F3F;
+            --light-bg-color: #323232;
+            --bg-color: #272727;
+            --dark-bg-color: #202020;
+            --darker-bg-color: #171717;
+            --darkest-bg-color: #101010;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--fg-color);
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    .elevated {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2), 0 0 4px rgba(0, 0, 0, 0.05);
+    }
+</style>

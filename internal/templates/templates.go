@@ -1,0 +1,3 @@
+package templates
+
+//go:generate go-bindata -nomemcopy -pkg=templates -ignore=README.md -prefix=../../templates -debug=false -o=templates_gen.go ../../templates/...

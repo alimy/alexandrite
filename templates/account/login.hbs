@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login - {{ instance.title }}</title>
+    {{> partials/head}}
+    <style>
+        .hero {
+            width: 100%;
+        }
+
+        .hero-content-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            padding: 40px 10px 10px;
+        }
+
+        .hero-title {
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .separator-container {
+            width: 100%;
+            display: grid;
+            grid-template-rows: 12px 10px;
+            grid-template-columns: 1fr;
+        }
+
+        .separator-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .separator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1400px;
+            height: 100%;
+            border-bottom: 2px solid var(--fg-color);
+        }
+
+        .login-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+        }
+
+        .login-content {
+            width: 100%;
+            max-width: 430px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        @media (max-width: 1400px) {
+            .login-content {
+                width: 100%;
+            }
+
+            .separator {
+                width: 90%;
+            }
+        }
+
+        .login-field {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 5px 0;
+        }
+
+        .login-field:first-child {
+            padding-top: 0;
+        }
+
+        .login-checkbox-field {
+            padding: 0;
+        }
+
+        .login-label {
+            font-weight: bold;
+            padding-bottom: 5px;
+        }
+
+        .login-checkbox-label {
+            padding: 5px 0;
+        }
+
+        .login-input {
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 7px 10px;
+            color: var(--fg-color);
+            background: transparent;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: "Fira Sans", sans-serif;
+            border-radius: 5px;
+            border: solid 2px var(--darker-bg-color);
+            transition: border-color 0.15s;
+        }
+
+        .login-input:focus {
+            border-color: var(--fg-color);
+        }
+
+        .login-input:invalid {
+            box-shadow: none;
+            {{!-- border-bottom: 2px solid #C00; --}}
+        }
+
+        .login-checkbox {
+            position: relative;
+            vertical-align: middle;
+            bottom: 1px;
+        }
+
+        .login-buttons {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr;
+            grid-gap: 10px;
+            width: 100%;
+            padding-top: 5px;
+        }
+
+        .login-button {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            border: 2px solid var(--darker-bg-color);
+            border-radius: 5px;
+            background: transparent;
+            cursor: pointer;
+            font: inherit;
+            font-weight: bold;
+            text-align: center;
+            color: inherit;
+            background-color: inherit;
+            padding: 7px 20px;
+            transition: background-color 0.15s, border-color 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-button:hover,
+        .login-button:focus {
+            border: 2px solid var(--fg-color);
+            background-color: var(--dark-bg-color);
+        }
+
+        .login-button:disabled {
+            border: 2px solid var(--darker-bg-color);
+            background-color: var(--dark-bg-color);
+            cursor: default;
+        }
+
+        .login-error-msg {
+            padding: 10px;
+            background-color: var(--danger-bg-color);
+            color: var(--danger-fg-color);
+            border-radius: 5px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .login-input {
+                border-color: var(--darker-fg-color);
+            }
+
+            .login-button {
+                border-color: var(--darker-fg-color);
+            }
+
+            .login-button:disabled {
+                border-color: var(--darker-fg-color);
+                background-color: var(--dark-fg-color);
+                color: var(--bg-color);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {{> partials/navbar}}
+    <div class="hero">
+        <div style="height: 50px"></div>
+        <div class="hero-content-container">
+            <div class="hero-title">Login page</div>
+            <div class="hero-subtitle">Log in by entering your credentials.</div>
+        </div>
+    </div>
+    <div class="separator-container">
+        <div class="separator-flex">
+            <div class="separator"></div>
+        </div>
+    </div>
+    <div class="login-container">
+        <form class="login-content" method="POST" action="/account/login">
+            <div class="login-field">
+                <label class="login-label" for="email">Email:</label>
+                <input class="login-input" type="email" name="email" id="email" placeholder="Enter email..." autocomplete="email" required>
+            </div>
+            <div class="login-field">
+                <label class="login-label" for="password">Password:</label>
+                <input class="login-input" type="password" name="password" id="password" placeholder="Enter password..." autocomplete="current-password" required>
+            </div>
+            <div class="login-field login-checkbox-field">
+                <label class="login-label login-checkbox-label">
+                    <input class="login-checkbox" type="checkbox" name="remember">
+                    Remember me for 30 days
+                </label>
+            </div>
+            {{#if error_msg}}
+            <div class="login-field login-error-msg">
+                Error: {{ error_msg }}
+            </div>
+            {{/if}}
+            <div class="login-buttons">
+                <input type="submit" value="Log in" class="login-button">
+                <a href="/account/register" class="login-button">Need to create an account ?</a>
+            </div>
+        </form>
+    </div>
+    <script type="module">
+        import init, * as Rust from "/assets/wasm/wasm_pbkdf2.js";
+
+        // A byte order mark character can show up as a result of the conversion
+        // between Rust strings (UTF-8) and JavaScript strings (UTF-16).
+        // This function removes it if there is one.
+        function removeByteOrderMark(inputString) {
+            return (inputString.charCodeAt(0) === 0xFEFF)
+                ? inputString.substr(1)
+                : inputString;
+        }
+
+        (async () => {
+            await init();
+            const form = document.querySelector('form.login-content');
+            const email = form.querySelector('input[type="email"]');
+            const password = form.querySelector('input[type="password"]');
+            const button = form.querySelector('input[type="submit"]');
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                button.disabled = true;
+                button.value = "Loading...";
+                password.value = removeByteOrderMark(Rust.pbkdf2_encode(password.value, email.value, 5000));
+                this.submit();
+            });
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,396 @@
+<style>
+    .navbar {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        height: 50px;
+        display: grid;
+        grid-gap: 8.5px;
+        grid-template-rows: 1fr;
+        grid-template-columns: 0px min-content 1fr min-content 0px;
+        grid-template-areas: ". brand search login .";
+        color: var(--fg-color);
+        background-color: var(--lighter-bg-color);
+        border-radius: 5px;
+    }
+
+    .navbar-tag {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-radius: 5px;
+        text-decoration: none;
+        color: var(--fg-color);
+        font-weight: bold;
+        padding: 0 10px;
+        white-space: nowrap;
+        outline: none;
+    }
+
+    .navbar-tag:hover,
+    .navbar-tag:focus {
+        color: var(--bg-color);
+        background-color: var(--fg-color) !important;
+    }
+
+    .navbar-brand-container {
+        grid-area: brand;
+        width: 100%;
+        height: 100%;
+        padding: 8.5px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .navbar-brand {
+        width: 100%;
+        height: 100%;
+    }
+
+    .navbar-search-container {
+        grid-area: search;
+        width: 100%;
+        height: 100%;
+        padding: 8.5px 0;
+    }
+
+    .navbar-search-container form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .navbar-search-overall {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+    }
+
+    .navbar-search {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        border: none;
+        border-radius: 5px;
+        color: var(--fg-color);
+        background-color: var(--bg-color);
+        padding: 5px 10px;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        width: 200px;
+        height: 100%;
+        transition: width 0.15s;
+        font-family: "Fira Sans", sans-serif;
+        outline: none;
+    }
+
+    .navbar-search-container:focus-within .navbar-search {
+        width: 320px;
+        border: 2px solid var(--darker-bg-color);
+    }
+
+    .navbar-search-container:focus-within .navbar-search-results {
+        display: inherit;
+    }
+
+    .navbar-search-results {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        z-index: -1;
+        padding: 5px;
+        overflow: hidden;
+        display: none;
+        background-color: var(--lighter-bg-color);
+        border-radius: 5px;
+    }
+
+    .navbar-search-results-spacer {
+        width: 100%;
+        height: 33.5px;
+        margin-bottom: 5px;
+        background-color: var(--lighter-bg-color);
+    }
+
+    .navbar-search-results-entries {
+        width: 100%;
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: 100%;
+    }
+
+    .navbar-search-results-entry {
+        padding: 5px 10px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .navbar-search-results-entry:hover,
+    .navbar-search-results-entry:focus {
+        background-color: var(--bg-color);
+    }
+
+    .navbar-search-results-entry-version {
+        font-size: 13px;
+        color: var(--secondary-fg-color);
+    }
+
+    .navbar-search-results-empty {
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .navbar-login-container {
+        grid-area: login;
+        width: 100%;
+        height: 100%;
+        padding: 8.5px 0;
+        display: grid;
+        grid-gap: 5px;
+        grid-template-rows: 1fr;
+        grid-template-columns: min-content min-content;
+    }
+
+    .navbar-login-container.logged-in {}
+
+    .navbar-burger-container {
+        grid-area: burger;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 21px;
+    }
+
+    .navbar-burger-icon {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .navbar-burger-input~.navbar .navbar-burger-icon::before {
+        font-family: alexicons;
+        content: "\e900";
+    }
+
+    .navbar-burger-input:checked~.navbar .navbar-burger-icon::before {
+        content: "\e901";
+    }
+
+    .navbar-mobile {
+        position: fixed;
+        top: 70px;
+        left: 10px;
+        right: 10px;
+        padding: 8.5px;
+        display: none;
+        grid-gap: 8.5px;
+        grid-template-rows: min-content min-content;
+        grid-template-columns: 1fr;
+        grid-template-areas: "brand""login";
+        color: var(--fg-color);
+        background-color: var(--lighter-bg-color);
+        border-radius: 5px;
+        overflow: hidden;
+        opacity: 0;
+        transform: scale(0.7);
+        pointer-events: none;
+        transition: opacity 0.15s, transform 0.15s;
+    }
+
+    @media (max-width: 600px) {
+        .navbar {
+            grid-template-columns: 50px 1fr 0px;
+            grid-template-areas: "burger search .";
+        }
+
+        .navbar-brand-container {
+            display: none;
+        }
+
+        .navbar-login-container {
+            display: none;
+        }
+
+        .navbar-burger-container {
+            display: flex;
+        }
+
+        .navbar-tag:hover {
+            background-color: var(--darker-fg-color) !important;
+            color: var(--darker-bg-color) !important;
+        }
+
+        .navbar-search-container form {
+            justify-content: center;
+        }
+
+        .navbar-search,
+        .navbar-search-overall,
+        .navbar-search-container:focus-within .navbar-search {
+            width: 100%;
+        }
+
+        .navbar-mobile {
+            display: grid;
+        }
+
+        .navbar-burger-input:checked~.navbar-mobile {
+            opacity: 1;
+            transform: none;
+            pointer-events: initial;
+        }
+
+        .navbar-mobile .navbar-tag {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--light-bg-color);
+        }
+
+        .navbar-brand-container-mobile {
+            grid-area: brand;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .navbar-login-container-mobile {
+            grid-area: login;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-gap: 8.5px;
+            grid-template-rows: 1fr;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .navbar-search-container:focus-within .navbar-search {
+            border: 2px solid var(--darker-fg-color);
+        }
+    }
+</style>
+<input class="navbar-burger-input" type="checkbox" id="burger-checkbox" hidden>
+<div class="navbar elevated">
+    <div class="navbar-brand-container">
+        <a class="navbar-brand navbar-tag" href="/">
+            {{ instance.title }}
+        </a>
+    </div>
+    <div class="navbar-search-container">
+        <form method="GET" action="/search">
+            <div class="navbar-search-overall">
+                <input type="text" class="navbar-search" name="q" placeholder="Search crate..." autocomplete="off">
+                <div class="navbar-search-results elevated">
+                    <div class="navbar-search-results-spacer"></div>
+                    <div class="navbar-search-results-entries">
+                        <div class="navbar-search-results-empty">No suggestions...</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="navbar-login-container">
+        {{#if user}}
+        <a href="/account/manage" class="navbar-tag">Manage account</a>
+        <a href="/account/logout" class="navbar-tag">Logout</a>
+        {{else}}
+        <a href="/account/login" class="navbar-tag">Login</a>
+        <a href="/account/register" class="navbar-tag">Register</a>
+        {{/if}}
+    </div>
+    <div class="navbar-burger-container">
+        <label class="navbar-burger-icon fas" for="burger-checkbox"></label>
+    </div>
+</div>
+<div class="navbar-mobile">
+    <div class="navbar-brand-container-mobile">
+        <a class="navbar-brand navbar-tag" href="/">
+            {{ instance.title }}
+        </a>
+    </div>
+    <div class="navbar-login-container-mobile">
+        {{#if user}}
+        <a href="/account/manage" class="navbar-tag">Manage account</a>
+        <a href="/account/logout" class="navbar-tag">Logout</a>
+        {{else}}
+        <a href="/account/login" class="navbar-tag">Login</a>
+        <a href="/account/register" class="navbar-tag">Register</a>
+        {{/if}}
+    </div>
+</div>
+<script>
+    function debounced(delay, fn) {
+        let timerID;
+        return function (...args) {
+            if (timerID) {
+                clearTimeout(timerID);
+            }
+            timerID = setTimeout(() => {
+                fn(...args);
+                timerID = null;
+            }, delay);
+        }
+    }
+
+    // template string tag to URL-encode every interpolated expressions.
+    const urlT = (strings, ...exprs) => {
+        const [head, ...tail] = strings;
+        return tail.reduce((acc, elem, idx) => [...acc, encodeURIComponent(exprs[idx]), elem], [head]).join("");
+    };
+
+    const handler = event => {
+        const query = event.target.value;
+        if (query.length == 0) {
+            const [entries] = document.getElementsByClassName("navbar-search-results-entries");
+            entries.innerHTML = "";
+            const empty = document.createElement("div");
+            empty.classList.add("navbar-search-results-empty");
+            empty.textContent = "No suggestions...";
+            entries.appendChild(empty);
+            return;
+        }
+        const url = urlT`/api/v1/crates/suggest?q=${query}`;
+        (async () => {
+            const response = await fetch(url, { mode: "same-origin", credentials: "same-origin" });
+            const data = await response.json();
+            const [entries] = document.getElementsByClassName("navbar-search-results-entries");
+            entries.innerHTML = "";
+            for ({ name, vers } of data.suggestions) {
+                const link = document.createElement("a");
+                link.classList.add("navbar-search-results-entry");
+                link.setAttribute("href", urlT`/crates/${name}`);
+                const div = document.createElement("div");
+                div.textContent = `${name} `;
+                const span = document.createElement("span");
+                span.classList.add("navbar-search-results-entry-version");
+                span.textContent = `v${vers}`;
+                div.appendChild(span);
+                link.appendChild(div);
+                entries.appendChild(link);
+            }
+        })();
+    };
+
+    const debouncedHandler = debounced(250, handler);
+    const input = document.querySelector('input[type="text"].navbar-search');
+    input.addEventListener("input", debouncedHandler);
+</script>
