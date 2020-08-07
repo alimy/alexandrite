@@ -4,12 +4,14 @@ GOFILES := $(shell find . -name "*.go" -type f)
 ASSETS_DATA_FILES := $(shell find assets/static | sed 's/  /\\ /g' | xargs)
 TEMPLATES_DATA_FILES := $(shell find templates | sed 's/  /\\ /g' | xargs)
 
+TARGET = alexandrite
+
 .PHONY: default
 default: run
 
 .PHONY: build
 build: fmt
-	go build -o mir-examples main.go
+	go build -o $(TARGET) main.go
 
 .PHONY: build
 run: fmt
