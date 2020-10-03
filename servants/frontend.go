@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/alimy/alexandrite/internal/assets"
-	"github.com/alimy/alexandrite/mirc/gen/api"
+	"github.com/alimy/alexandrite/mirc/auto/api"
 	"github.com/gorilla/mux"
 )
 

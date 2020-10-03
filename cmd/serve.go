@@ -8,13 +8,13 @@ import (
 	"net/http"
 
 	"github.com/alimy/alexandrite/internal/config"
-	"github.com/alimy/alexandrite/mirc/gen/api"
+	"github.com/alimy/alexandrite/mirc/auto/api"
 	"github.com/alimy/alexandrite/servants"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	v1 "github.com/alimy/alexandrite/mirc/gen/api/api/v1"
+	v1 "github.com/alimy/alexandrite/mirc/auto/api/api/v1"
 )
 
 var (

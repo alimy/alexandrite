@@ -21,7 +21,7 @@ func main() {
 		RunMode(InSerialMode),
 		GeneratorName(GeneratorMux),
 		Cleanup(true),
-		SinkPath("./gen"),
+		SinkPath("auto"),
 	}
 	if err := Generate(opts); err != nil {
 		log.Fatal(err)

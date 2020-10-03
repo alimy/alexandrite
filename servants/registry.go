@@ -7,7 +7,7 @@ package servants
 import (
 	"net/http"
 
-	v1 "github.com/alimy/alexandrite/mirc/gen/api/api/v1"
+	v1 "github.com/alimy/alexandrite/mirc/auto/api/api/v1"
 )
 
 type registry struct {
