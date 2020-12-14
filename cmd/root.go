@@ -5,7 +5,7 @@
 package cmd
 
 import (
-	"github.com/alimy/alexandrite/internal/config"
+	"github.com/alimy/alexandrite/internal/conf"
 	"github.com/alimy/alexandrite/internal/logus"
 )
 
@@ -21,6 +21,6 @@ func inSetup() {
 	}
 }
 
-func coreInit(conf *config.Config) {
+func coreInit(conf *conf.Config) {
 	// TODO
 }

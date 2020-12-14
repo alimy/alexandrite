@@ -18,7 +18,7 @@ import (
 func main() {
 	log.Println("generate code start")
 	opts := Options{
-		RunMode(InSerialMode),
+		RunMode(InSerialDebugMode),
 		GeneratorName(GeneratorMux),
 		Cleanup(true),
 		SinkPath("auto"),

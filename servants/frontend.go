@@ -7,9 +7,10 @@ package servants
 import (
 	"net/http"
 
-	"github.com/alimy/alexandrite/internal/assets"
+	"github.com/alimy/alexandrite/assets/static"
 	"github.com/alimy/alexandrite/mirc/auto/api"
 	"github.com/gorilla/mux"
+	"github.com/sirupsen/logrus"
 )
 
 type frontend struct {
@@ -23,14 +24,20 @@ func (f *frontend) Chain() []mux.MiddlewareFunc {
 
 func (f *frontend) Index(rw http.ResponseWriter, r *http.Request) {
 	// TODO
+	logrus.Infof("get index %s", r.URL.Path)
+	rw.Write([]byte(r.URL.Path))
 }
 
 func (f *frontend) Me(rw http.ResponseWriter, r *http.Request) {
 	// TODO
+	logrus.Infof("get me %s", r.URL.Path)
+	rw.Write([]byte(r.URL.Path))
 }
 
 func (f *frontend) Search(rw http.ResponseWriter, r *http.Request) {
 	// TODO
+	logrus.Infof("get search %s", r.URL.RawPath)
+	rw.Write([]byte(r.URL.Path))
 }
 
 func (f *frontend) MostDownloaded(rw http.ResponseWriter, r *http.Request) {
@@ -82,12 +89,12 @@ func (f *frontend) RevokeToken(rw http.ResponseWriter, r *http.Request) {
 }
 
 func (f *frontend) Assets(rw http.ResponseWriter, r *http.Request) {
-	// TODO
+	logrus.Infof("get assets %s", r.URL.Path)
+	f.staticHandler.ServeHTTP(rw, r)
 }
 
 func NewFrontend() api.Frontend {
-	fs := assets.NewFileSystem()
 	return &frontend{
-		staticHandler: http.StripPrefix("/assets/", http.FileServer(fs)),
+		staticHandler: http.StripPrefix("assets/", http.FileServer(static.NewFS())),
 	}
 }

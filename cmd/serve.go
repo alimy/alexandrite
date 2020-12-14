@@ -7,7 +7,8 @@ package cmd
 import (
 	"net/http"
 
-	"github.com/alimy/alexandrite/internal/config"
+	"github.com/alimy/alexandrite/assets/static"
+	"github.com/alimy/alexandrite/internal/conf"
 	"github.com/alimy/alexandrite/mirc/auto/api"
 	"github.com/alimy/alexandrite/servants"
 	"github.com/gorilla/mux"
@@ -33,14 +34,12 @@ func init() {
 }
 
 func serveRun(cmd *cobra.Command, args []string) {
-	conf := serveSetup()
+	config := serveSetup()
 	r := mux.NewRouter()
-
-	// register servants to chi
 	registerServants(r)
 
-	// start servant service
-	if err := http.ListenAndServe(conf.Server.Addr, r); err != nil {
+	logrus.Printf("start listening on %s", config.Server.Addr)
+	if err := http.ListenAndServe(config.Server.Addr, r); err != nil {
 		logrus.Fatal(err)
 	}
 }
@@ -48,10 +47,14 @@ func serveRun(cmd *cobra.Command, args []string) {
 func registerServants(r *mux.Router) {
 	api.RegisterFrontendServant(r, servants.NewFrontend())
 	v1.RegisterRegistryServant(r, servants.NewRegistry())
+
+	assetsHandler := http.StripPrefix("/assets/", http.FileServer(static.NewFS()))
+	r.PathPrefix("/assets/").Handler(assetsHandler)
 }
 
-func serveSetup() *config.Config {
-	conf := config.InitWith(inConfigFile)
-	coreInit(conf)
-	return conf
+func serveSetup() *conf.Config {
+	config := conf.InitWith(inConfigFile)
+	coreInit(config)
+	inSetup()
+	return config
 }

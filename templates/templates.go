@@ -4,4 +4,9 @@
 
 package templates
 
-//go:generate go-bindata -nomemcopy -pkg=templates -ignore=README.md -prefix=../../templates -debug=false -o=templates_gen.go ../../templates/...
+import "embed"
+
+// TmplFS export an embed templates FS
+//go:embed account partials
+//go:embed crate.hbs error.hbs index.hbs last-updated.hbs most-downloaded.hbs search.hbs
+var TmplFS embed.FS

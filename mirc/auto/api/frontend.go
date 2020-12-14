@@ -6,7 +6,8 @@ import (
 	"net/http"
 
 	"github.com/alimy/mir/v2"
-	"github.com/gorilla/mux"
+
+	mux "github.com/gorilla/mux"
 )
 
 // just use for mir.Any method to register
@@ -31,7 +32,6 @@ type Frontend interface {
 	Password(http.ResponseWriter, *http.Request)
 	Tokens(http.ResponseWriter, *http.Request)
 	RevokeToken(http.ResponseWriter, *http.Request)
-	Assets(http.ResponseWriter, *http.Request)
 }
 
 // RegisterFrontendServant register Frontend servant to mux
@@ -72,7 +72,5 @@ func RegisterFrontendServant(r *mux.Router, s Frontend) {
 	router.HandleFunc("/account/manage/tokens", s.Tokens).
 		Methods("POST")
 	router.HandleFunc("/account/manage/tokens/{token-id}/revoke", s.RevokeToken).
-		Methods("GET")
-	router.HandleFunc("/assets/", s.Assets).
 		Methods("GET")
 }

@@ -6,7 +6,8 @@ import (
 	"net/http"
 
 	"github.com/alimy/mir/v2"
-	"github.com/gorilla/mux"
+
+	mux "github.com/gorilla/mux"
 )
 
 // just use for mir.Any method to register

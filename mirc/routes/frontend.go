@@ -31,5 +31,4 @@ type Frontend struct {
 	Password       Post  `mir:"/account/manage/password"`
 	Tokens         Post  `mir:"/account/manage/tokens"`
 	RevokeToken    Get   `mir:"/account/manage/tokens/{token-id}/revoke"`
-	Assets         Get   `mir:"/assets/"`
 }

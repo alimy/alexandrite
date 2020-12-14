@@ -2,16 +2,16 @@
 // Use of this source code is governed by Apache License 2.0 that
 // can be found in the LICENSE file.
 
-package config
+package conf
 
 import (
 	"os"
 
 	"github.com/BurntSushi/toml"
 	"github.com/sirupsen/logrus"
-)
 
-//go:generate go-bindata -nomemcopy -pkg=config -ignore=README.md -prefix=../../assets/ -debug=false -o=config_gen.go ../../assets/config/...
+	assetsConf "github.com/alimy/alexandrite/assets/conf"
+)
 
 var (
 	config *Config
@@ -47,8 +47,7 @@ func fileIsExist(path string) bool {
 }
 
 func loadConfig(config *Config) error {
-	data := MustAsset("config/alexandrite.toml")
-	_, err := toml.Decode(string(data), config)
+	_, err := toml.Decode(assetsConf.Data, config)
 	return err
 }
 
