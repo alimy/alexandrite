@@ -2,7 +2,7 @@
 // Use of this source code is governed by Apache License 2.0 that
 // can be found in the LICENSE file.
 
-package cached
+package cache
 
 import (
 	"sync"
@@ -11,13 +11,13 @@ import (
 )
 
 var (
-	cache dao.Cache
-	once  sync.Once
+	cached dao.Cached
+	once   sync.Once
 )
 
-func MyCache() dao.Cache {
+func MyCached() dao.Cached {
 	once.Do(func() {
-		cache = newMC()
+		cached = newMC()
 	})
-	return cache
+	return cached
 }

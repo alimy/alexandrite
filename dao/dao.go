@@ -4,6 +4,6 @@ type Repository interface {
 	// TODO
 }
 
-type Cache interface {
+type Cached interface {
 	// TODO
 }

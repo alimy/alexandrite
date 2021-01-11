@@ -8,14 +8,14 @@ import (
 	"net/http"
 
 	"github.com/alimy/alexandrite/dao"
-	"github.com/alimy/alexandrite/internal/cached"
+	"github.com/alimy/alexandrite/internal/cache"
 	"github.com/alimy/alexandrite/internal/xorm"
 	v1 "github.com/alimy/alexandrite/mirc/auto/api/api/v1"
 )
 
 type registry struct {
-	repo  dao.Repository
-	cache dao.Cache
+	repo   dao.Repository
+	cached dao.Cached
 }
 
 func (g *registry) Register(rw http.ResponseWriter, r *http.Request) {
@@ -88,7 +88,7 @@ func (g *registry) DownloadCrate(rw http.ResponseWriter, r *http.Request) {
 
 func NewRegistry() v1.Registry {
 	return &registry{
-		repo:  xorm.MyRepo(),
-		cache: cached.MyCache(),
+		repo:   xorm.MyRepo(),
+		cached: cache.MyCached(),
 	}
 }

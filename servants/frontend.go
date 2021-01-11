@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/alimy/alexandrite/dao"
-	"github.com/alimy/alexandrite/internal/cached"
+	"github.com/alimy/alexandrite/internal/cache"
 	"github.com/alimy/alexandrite/internal/xorm"
 	"github.com/alimy/alexandrite/mirc/auto/api"
 	"github.com/gorilla/mux"
@@ -16,8 +16,8 @@ import (
 )
 
 type frontend struct {
-	repo  dao.Repository
-	cache dao.Cache
+	repo   dao.Repository
+	cached dao.Cached
 }
 
 func (f *frontend) Chain() []mux.MiddlewareFunc {
@@ -92,7 +92,7 @@ func (f *frontend) RevokeToken(rw http.ResponseWriter, r *http.Request) {
 
 func NewFrontend() api.Frontend {
 	return &frontend{
-		repo:  xorm.MyRepo(),
-		cache: cached.MyCache(),
+		repo:   xorm.MyRepo(),
+		cached: cache.MyCached(),
 	}
 }
