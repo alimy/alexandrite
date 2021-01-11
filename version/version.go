@@ -4,17 +4,14 @@
 
 package version
 
-import "github.com/coreos/go-semver/semver"
+import "github.com/Masterminds/semver/v3"
 
 var (
 	// GitHash Value will be set during build
 	GitHash = "Not provided"
+
 	// BuildTime Value will be set during build
 	BuildTime = "Not provided"
-)
 
-var AppVer = semver.Version{
-	Major: 0,
-	Minor: 1,
-	Patch: 0,
-}
+	AppVer = semver.MustParse("v0.1.0")
+)

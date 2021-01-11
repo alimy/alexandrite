@@ -8,28 +8,21 @@ import (
 	"os"
 
 	"github.com/BurntSushi/toml"
+	"github.com/alimy/alexandrite/assets"
 	"github.com/sirupsen/logrus"
-
-	assetsConf "github.com/alimy/alexandrite/assets/conf"
 )
 
 var (
-	config *Config
+	config = mustConfig()
 )
 
 // InitWith initialize models with custom config file
 func InitWith(path string) *Config {
-	config = &Config{}
-	// init config
-	if err := loadConfig(config); err != nil {
-		logrus.Error("load config error", err)
-	}
-	if path == "" {
-		// Empty
-	} else if fileIsExist(path) { // set config from custom config file
+	// set config from custom config file
+	if path != "" && fileIsExist(path) {
 		customConfig(config, path)
 	} else {
-		logrus.Infof("custom config file is not exist so use default config path: %s", path)
+		logrus.Infof("custom config file[%s] is not exist so use default config", path)
 	}
 	return config
 }
@@ -46,9 +39,12 @@ func fileIsExist(path string) bool {
 	return err == nil || os.IsExist(err)
 }
 
-func loadConfig(config *Config) error {
-	_, err := toml.Decode(assetsConf.Data, config)
-	return err
+func mustConfig() *Config {
+	defConf := &Config{}
+	if _, err := toml.Decode(assets.DefaultConfig(), defConf); err != nil {
+		panic(err)
+	}
+	return defConf
 }
 
 func customConfig(config *Config, path string) {

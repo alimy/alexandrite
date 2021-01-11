@@ -7,15 +7,17 @@ package servants
 import (
 	"net/http"
 
-	"github.com/alimy/alexandrite/assets/static"
+	"github.com/alimy/alexandrite/dao"
+	"github.com/alimy/alexandrite/internal/cached"
+	"github.com/alimy/alexandrite/internal/xorm"
 	"github.com/alimy/alexandrite/mirc/auto/api"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 )
 
 type frontend struct {
-	staticHandler http.Handler
-	// TODO
+	repo  dao.Repository
+	cache dao.Cache
 }
 
 func (f *frontend) Chain() []mux.MiddlewareFunc {
@@ -88,13 +90,9 @@ func (f *frontend) RevokeToken(rw http.ResponseWriter, r *http.Request) {
 	// TODO
 }
 
-func (f *frontend) Assets(rw http.ResponseWriter, r *http.Request) {
-	logrus.Infof("get assets %s", r.URL.Path)
-	f.staticHandler.ServeHTTP(rw, r)
-}
-
 func NewFrontend() api.Frontend {
 	return &frontend{
-		staticHandler: http.StripPrefix("assets/", http.FileServer(static.NewFS())),
+		repo:  xorm.MyRepo(),
+		cache: cached.MyCache(),
 	}
 }

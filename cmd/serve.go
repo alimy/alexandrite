@@ -7,7 +7,7 @@ package cmd
 import (
 	"net/http"
 
-	"github.com/alimy/alexandrite/assets/static"
+	"github.com/alimy/alexandrite/assets"
 	"github.com/alimy/alexandrite/internal/conf"
 	"github.com/alimy/alexandrite/mirc/auto/api"
 	"github.com/alimy/alexandrite/servants"
@@ -48,7 +48,7 @@ func registerServants(r *mux.Router) {
 	api.RegisterFrontendServant(r, servants.NewFrontend())
 	v1.RegisterRegistryServant(r, servants.NewRegistry())
 
-	assetsHandler := http.StripPrefix("/assets/", http.FileServer(static.NewFS()))
+	assetsHandler := http.StripPrefix("/assets/", http.FileServer(assets.NewStaticFS()))
 	r.PathPrefix("/assets/").Handler(assetsHandler)
 }
 
