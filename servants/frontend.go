@@ -7,10 +7,10 @@ package servants
 import (
 	"net/http"
 
-	"github.com/alimy/alexandrite/dao"
-	"github.com/alimy/alexandrite/internal/cache"
-	"github.com/alimy/alexandrite/internal/xorm"
-	"github.com/alimy/alexandrite/mirc/auto/api"
+	"github.com/alimy/hori/dao"
+	"github.com/alimy/hori/internal/cache"
+	"github.com/alimy/hori/internal/xorm"
+	"github.com/alimy/hori/mirc/auto/api"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 )

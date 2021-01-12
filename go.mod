@@ -1,4 +1,4 @@
-module github.com/alimy/alexandrite
+module github.com/alimy/hori
 
 go 1.16
 

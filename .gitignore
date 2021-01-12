@@ -17,4 +17,5 @@
 # Goland project files
 .idea
 
-alexandrite
+/hori
+/release

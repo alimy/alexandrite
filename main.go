@@ -5,7 +5,7 @@
 package main
 
 import (
-	"github.com/alimy/alexandrite/cmd"
+	"github.com/alimy/hori/cmd"
 )
 
 func main() {

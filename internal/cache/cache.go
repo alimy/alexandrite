@@ -7,7 +7,7 @@ package cache
 import (
 	"sync"
 
-	"github.com/alimy/alexandrite/dao"
+	"github.com/alimy/hori/dao"
 )
 
 var (

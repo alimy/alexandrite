@@ -5,8 +5,8 @@
 package cmd
 
 import (
-	"github.com/alimy/alexandrite/internal/conf"
-	"github.com/alimy/alexandrite/internal/logus"
+	"github.com/alimy/hori/internal/conf"
+	"github.com/alimy/hori/internal/logus"
 )
 
 var (

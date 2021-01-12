@@ -7,10 +7,10 @@ package servants
 import (
 	"net/http"
 
-	"github.com/alimy/alexandrite/dao"
-	"github.com/alimy/alexandrite/internal/cache"
-	"github.com/alimy/alexandrite/internal/xorm"
-	v1 "github.com/alimy/alexandrite/mirc/auto/api/api/v1"
+	"github.com/alimy/hori/dao"
+	"github.com/alimy/hori/internal/cache"
+	"github.com/alimy/hori/internal/xorm"
+	v1 "github.com/alimy/hori/mirc/auto/api/api/v1"
 )
 
 type registry struct {

@@ -7,7 +7,7 @@ package xorm
 import (
 	"sync"
 
-	"github.com/alimy/alexandrite/dao"
+	"github.com/alimy/hori/dao"
 	"github.com/sirupsen/logrus"
 )
 

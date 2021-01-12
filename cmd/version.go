@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"github.com/alimy/alexandrite/version"
+	"github.com/alimy/hori/version"
 	"github.com/spf13/cobra"
 )
 

@@ -1,11 +1,11 @@
 GOFMT ?= gofmt -s -w
 GOFILES := $(shell find . -name "*.go" -type f)
 
-TARGET = alexandrite
+TARGET = hori
 
 TAGS = release
-LDFLAGS += -X "github.com/alimy/alexandrite/version.BuildTime=$(shell date -u '+%Y-%m-%d %I:%M:%S %Z')"
-LDFLAGS += -X "github.com/alimy/alexandrite/version.GitHash=$(shell git rev-parse HEAD)"
+LDFLAGS += -X "github.com/alimy/hori/version.BuildTime=$(shell date -u '+%Y-%m-%d %I:%M:%S %Z')"
+LDFLAGS += -X "github.com/alimy/hori/version.GitHash=$(shell git rev-parse HEAD)"
 
 .PHONY: default
 default: run

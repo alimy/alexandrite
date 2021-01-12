@@ -7,15 +7,15 @@ package cmd
 import (
 	"net/http"
 
-	"github.com/alimy/alexandrite/assets"
-	"github.com/alimy/alexandrite/internal/conf"
-	"github.com/alimy/alexandrite/mirc/auto/api"
-	"github.com/alimy/alexandrite/servants"
+	"github.com/alimy/hori/assets"
+	"github.com/alimy/hori/internal/conf"
+	"github.com/alimy/hori/mirc/auto/api"
+	"github.com/alimy/hori/servants"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	v1 "github.com/alimy/alexandrite/mirc/auto/api/api/v1"
+	v1 "github.com/alimy/hori/mirc/auto/api/api/v1"
 )
 
 var (

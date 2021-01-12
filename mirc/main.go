@@ -10,8 +10,8 @@ import (
 	. "github.com/alimy/mir/v2/core"
 	. "github.com/alimy/mir/v2/engine"
 
-	_ "github.com/alimy/alexandrite/mirc/routes"
-	_ "github.com/alimy/alexandrite/mirc/routes/v1"
+	_ "github.com/alimy/hori/mirc/routes"
+	_ "github.com/alimy/hori/mirc/routes/v1"
 )
 
 //go:generate go run main.go

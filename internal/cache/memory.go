@@ -4,7 +4,7 @@
 
 package cache
 
-import "github.com/alimy/alexandrite/dao"
+import "github.com/alimy/hori/dao"
 
 type mc struct {
 	// TODO

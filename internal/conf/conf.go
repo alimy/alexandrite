@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"github.com/BurntSushi/toml"
-	"github.com/alimy/alexandrite/assets"
+	"github.com/alimy/hori/assets"
 	"github.com/sirupsen/logrus"
 )
 
