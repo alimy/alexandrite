@@ -7,11 +7,7 @@ package cmd
 import "github.com/spf13/cobra"
 
 var (
-	rootCmd = &cobra.Command{
-		Use:   "alexandrite",
-		Short: "rust crates registry",
-		Long:  `rust crates registry`,
-	}
+	rootCmd = &cobra.Command{}
 )
 
 // Setup set root command name,short-describe, long-describe

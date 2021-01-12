@@ -15,7 +15,7 @@ import (
 
 // DefaultConfig default configure raw data string.
 func DefaultConfig() string {
-	//go:embed conf/alexandrite.toml
+	//go:embed conf/hori.toml
 	var content string
 
 	return content

@@ -1,7 +1,7 @@
 [application]
-name = "alexandrite"
+name = "Hori"
 authors = ["Michael Li <alimy@gility.net>"]
-description = "alternative cconfigrate registry"
+description = "alternative rust crate registry"
 
 [Server]
 addr = ":2020"

@@ -10,9 +10,9 @@ import (
 
 func main() {
 	cmd.Setup(
-		"alexandrite",          // command name
-		"rust crates registry", // command short describe
-		"rust crates registry", // command long describe
+		"hori",
+		"rust crates registry",
+		"rust crates registry",
 	)
 	cmd.Execute()
 }
