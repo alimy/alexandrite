@@ -2,7 +2,7 @@
 // Use of this source code is governed by Apache License 2.0 that
 // can be found in the LICENSE file.
 
-package cache
+package store
 
 import (
 	"sync"
@@ -11,24 +11,20 @@ import (
 	"github.com/alimy/hori/internal/conf"
 )
 
-const (
-	keyConfig uint16 = iota
-)
-
 var (
-	cached dao.Cached
+	stored dao.Stored
 	once   sync.Once
 )
 
-func MyCached() dao.Cached {
+func MyStored() dao.Stored {
 	once.Do(func() {
 		config := conf.MyConfig()
-		switch config.Cache.Type {
-		case "ristretto":
-			cached = newMC()
+		switch config.Store.Type {
+		case "badger":
+			stored = newBS(config.Store.Path)
 		default:
-			cached = newMC()
+			stored = newBS(config.Store.Path)
 		}
 	})
-	return cached
+	return stored
 }

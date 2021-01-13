@@ -8,6 +8,7 @@ import (
 	"sync"
 
 	"github.com/alimy/hori/dao"
+	"github.com/alimy/hori/internal/conf"
 	"github.com/sirupsen/logrus"
 )
 
@@ -18,6 +19,12 @@ var (
 
 func MyRepo() dao.Repository {
 	once.Do(func() {
+		config := conf.MyConfig()
+		if config.Runtime.FakeDatabase {
+			repo = fakeDB()
+			return
+		}
+
 		var err error
 		repo, err = initDB()
 		if err != nil {

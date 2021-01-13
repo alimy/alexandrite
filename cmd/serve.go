@@ -29,7 +29,7 @@ func init() {
 		Run:   serveRun,
 	}
 	serveCmd.Flags().BoolVar(&inDebug, "debug", false, "whether in debug mode")
-	serveCmd.Flags().StringVarP(&inConfigFile, "config", "c", "", "custom config file path used to init application")
+	serveCmd.Flags().StringVarP(&inConfigFile, "config", "c", "custom/conf/app.toml", "custom config file path used to init application")
 	register(serveCmd)
 }
 
@@ -38,6 +38,7 @@ func serveRun(cmd *cobra.Command, args []string) {
 	r := mux.NewRouter()
 	registerServants(r)
 
+	logrus.Debugf("config:%s", config)
 	logrus.Printf("start listening on %s", config.Server.Addr)
 	if err := http.ListenAndServe(config.Server.Addr, r); err != nil {
 		logrus.Fatal(err)

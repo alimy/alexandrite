@@ -9,6 +9,7 @@ import (
 
 	"github.com/alimy/hori/dao"
 	"github.com/alimy/hori/internal/cache"
+	"github.com/alimy/hori/internal/store"
 	"github.com/alimy/hori/internal/xorm"
 	v1 "github.com/alimy/hori/mirc/auto/api/api/v1"
 )
@@ -16,6 +17,7 @@ import (
 type registry struct {
 	repo   dao.Repository
 	cached dao.Cached
+	stored dao.Stored
 }
 
 func (g *registry) Register(rw http.ResponseWriter, r *http.Request) {
@@ -90,5 +92,6 @@ func NewRegistry() v1.Registry {
 	return &registry{
 		repo:   xorm.MyRepo(),
 		cached: cache.MyCached(),
+		stored: store.MyStored(),
 	}
 }

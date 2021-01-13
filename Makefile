@@ -15,7 +15,7 @@ build: fmt
 	go build -ldflags '$(LDFLAGS)' -tags '$(TAGS)' -o $(TARGET) main.go
 
 .PHONY: build
-run: fmt
+run:
 	go run -ldflags '$(LDFLAGS)' -tags '$(TAGS)' main.go serve
 
 .PHONY: generate

@@ -1,0 +1,35 @@
+[application]
+name = "Hori"
+authors = ["Michael Li <alimy@gility.net>"]
+description = "alternative rust crate registry"
+
+[runtime]
+# The running mode of the application, can be either "dev", "prod" or "test".
+run_mode = "dev"
+fake_database = false
+
+[server]
+addr = ":2020"
+
+[database]
+# The database backend, either "postgres", "mysql" "sqlite3" or "mssql".
+type = "sqlite3"
+host = "127.0.0.1:5432"
+name = "hori"
+user = "hori"
+password = ""
+# For "postgres" only, either "disable", "require" or "verify-full".
+ssl_mode = "disable"
+# For "sqlite3" only, make sure to use absolute path.
+path = "custom/data/hori.db"
+# The maximum open connections of the pool.
+max_open_conns = 30
+# The maximum idle connections of the pool.
+max_idle_conns = 30
+
+[cache]
+type = "ristretto"
+
+[store]
+type = "badger"
+path = "custom/data/store"

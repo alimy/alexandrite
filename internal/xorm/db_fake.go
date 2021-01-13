@@ -2,14 +2,16 @@
 // Use of this source code is governed by Apache License 2.0 that
 // can be found in the LICENSE file.
 
-package cache
+package xorm
 
 import "github.com/alimy/hori/dao"
 
-type mc struct {
-	// TODO
+type dbf struct{}
+
+func fakeDB() dao.Repository {
+	return &dbf{}
 }
 
-func newMC() dao.Cached {
-	return &mc{}
+func (dbf) Whoami() string {
+	return "fakeDB"
 }

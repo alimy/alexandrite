@@ -6,6 +6,7 @@ package conf
 
 import (
 	"os"
+	"strings"
 
 	"github.com/BurntSushi/toml"
 	"github.com/alimy/hori/assets"
@@ -14,6 +15,12 @@ import (
 
 var (
 	config = mustConfig()
+
+	// Indicates which database backend is currently being used.
+	UseSQLite3    bool
+	UseMySQL      bool
+	UsePostgreSQL bool
+	UseMSSQL      bool
 )
 
 // InitWith initialize models with custom config file
@@ -61,8 +68,16 @@ func customConfig(config *Config, path string) {
 		switch key[0] {
 		case "application":
 			myAppSection(config, customConfig, key)
+		case "runtime":
+			myRuntimeSection(config, customConfig, key)
 		case "server":
 			myServerSection(config, customConfig, key)
+		case "database":
+			myDatabaseSection(config, customConfig, key)
+		case "cache":
+			myCacheSection(config, customConfig, key)
+		case "store":
+			myStoreSection(config, customConfig, key)
 		}
 	}
 }
@@ -78,9 +93,62 @@ func myAppSection(config *Config, custom *Config, key toml.Key) {
 	}
 }
 
+func myRuntimeSection(config *Config, custom *Config, key toml.Key) {
+	switch key[1] {
+	case "run_mode":
+		config.Runtime.RunMode = custom.Runtime.RunMode
+	case "fake_database":
+		config.Runtime.FakeDatabase = custom.Runtime.FakeDatabase
+	}
+}
+
 func myServerSection(config *Config, custom *Config, key toml.Key) {
 	switch key[1] {
 	case "addr":
 		config.Server.Addr = custom.Server.Addr
 	}
+}
+
+func myDatabaseSection(config *Config, custom *Config, key toml.Key) {
+	switch key[1] {
+	case "type":
+		config.Database.Type = custom.Database.Type
+	case "host":
+		config.Database.Host = custom.Database.Host
+	case "name":
+		config.Database.Name = custom.Database.Name
+	case "user":
+		config.Database.User = custom.Database.User
+	case "password":
+		config.Database.Password = custom.Database.Password
+	case "path":
+		config.Database.Path = custom.Database.Path
+	case "ssl_mode":
+		config.Database.SSLMode = custom.Database.SSLMode
+	case "max_open_conns":
+		config.Database.MaxOpenConns = custom.Database.MaxOpenConns
+	case "max_idle_conns":
+		config.Database.MaxIdleConns = custom.Database.MaxIdleConns
+	}
+}
+
+func myCacheSection(config *Config, custom *Config, key toml.Key) {
+	switch key[1] {
+	case "type":
+		config.Cache.Type = custom.Cache.Type
+	}
+}
+
+func myStoreSection(config *Config, custom *Config, key toml.Key) {
+	switch key[1] {
+	case "type":
+		config.Store.Type = custom.Store.Type
+	case "path":
+		config.Store.Path = custom.Store.Path
+	}
+}
+
+// IsProdMode returns true if the application is running in production mode.
+func IsProdMode() bool {
+	return strings.EqualFold(config.Runtime.RunMode, "prod")
 }
