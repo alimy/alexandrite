@@ -8,8 +8,6 @@ import (
 	"fmt"
 	"net/url"
 	"strings"
-
-	"github.com/pkg/errors"
 )
 
 // Config application config model
@@ -117,7 +115,7 @@ func (c *Database) Dsn() (dsn string, err error) {
 		dsn = "file:" + c.Path + "?cache=shared&mode=rwc"
 
 	default:
-		return "", errors.Errorf("unrecognized dialect: %s", c.Type)
+		return "", fmt.Errorf("unrecognized dialect: %s", c.Type)
 	}
 
 	return dsn, nil
