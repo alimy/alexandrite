@@ -9,6 +9,7 @@ import (
 
 	"github.com/alimy/hori/dao"
 	"github.com/alimy/hori/internal/conf"
+	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -25,6 +26,7 @@ func MyStored() dao.Stored {
 		default:
 			stored = newBS(config.Store.Path)
 		}
+		logrus.Infof("use %s as stored", stored.Whoami())
 	})
 	return stored
 }

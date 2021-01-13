@@ -9,6 +9,7 @@ import (
 
 	"github.com/alimy/hori/dao"
 	"github.com/alimy/hori/internal/conf"
+	"github.com/sirupsen/logrus"
 )
 
 const (
@@ -29,6 +30,7 @@ func MyCached() dao.Cached {
 		default:
 			cached = newMC()
 		}
+		logrus.Infof("use %s as cached", cached.Whoami())
 	})
 	return cached
 }

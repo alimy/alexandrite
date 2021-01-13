@@ -19,17 +19,17 @@ var (
 
 func MyRepo() dao.Repository {
 	once.Do(func() {
+		var err error
 		config := conf.MyConfig()
 		if config.Runtime.FakeDatabase {
 			repo = fakeDB()
 			return
 		}
-
-		var err error
 		repo, err = initDB()
 		if err != nil {
 			logrus.Fatal(err)
 		}
+		logrus.Infof("use %s(%s) as repository", repo.Whoami(), config.Database.Type)
 	})
 	return repo
 }
