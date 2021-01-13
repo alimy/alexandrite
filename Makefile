@@ -12,7 +12,7 @@ GOFILES := $(shell find . -name "*.go" -type f)
 
 TAGS    = jsoniter
 LDFLAGS += -X "$(PACKAGE)/version.BuildTime=$(shell date -v+8H -u '+%Y-%m-%d %H:%M:%S %Z+8')"
-LDFLAGS += -X "$(PACKAGE)/version.GitHash=$(shell git rev-parse --short HEAD)"
+LDFLAGS += -X "$(PACKAGE)/version.GitHash=$(shell git rev-parse --short=12 HEAD)"
 
 .PHONY: default
 default: run
@@ -32,10 +32,10 @@ generate:
 
 .PHONY: release
 release: linux-amd64 darwin-amd64 darwin-arm64 windows-x64
-	cp -rf scripts LICENSE README.md $(RELEASE_LINUX_AMD64)
-	cp -rf scripts LICENSE README.md $(RELEASE_DARWIN_AMD64)
-	cp -rf scripts LICENSE README.md $(RELEASE_DARWIN_ARM64)
-	cp -rf scripts LICENSE README.md $(RELEASE_WINDOWS_AMD64)
+	cp -rf build/scripts LICENSE README.md $(RELEASE_LINUX_AMD64)
+	cp -rf build/scripts LICENSE README.md $(RELEASE_DARWIN_AMD64)
+	cp -rf build/scripts LICENSE README.md $(RELEASE_DARWIN_ARM64)
+	cp -rf build/scripts LICENSE README.md $(RELEASE_WINDOWS_AMD64)
 	cd $(RELEASE_LINUX_AMD64)/.. && rm -f *.zip && zip -r $(TARGET)-linux_amd64.zip $(TARGET) && cd -
 	cd $(RELEASE_DARWIN_AMD64)/.. && rm -f *.zip && zip -r $(TARGET)-darwin_amd64.zip $(TARGET) && cd -
 	cd $(RELEASE_DARWIN_ARM64)/.. && rm -f *.zip && zip -r $(TARGET)-darwin_arm64.zip $(TARGET) && cd -
