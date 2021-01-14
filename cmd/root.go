@@ -5,6 +5,7 @@
 package cmd
 
 import (
+	"github.com/alimy/hori/internal"
 	"github.com/alimy/hori/internal/conf"
 	"github.com/alimy/hori/internal/logus"
 )
@@ -13,8 +14,8 @@ var (
 	inDebug bool
 )
 
-func inSetup() {
-	if inDebug {
+func inSetup(config *conf.Config) {
+	if inDebug || !config.Runtime.InProdMode() {
 		logus.SetLevel(logus.LevelDebug)
 	} else {
 		logus.SetLevel(logus.LevelInfo)
@@ -22,5 +23,5 @@ func inSetup() {
 }
 
 func coreInit(conf *conf.Config) {
-	// TODO
+	internal.InitWith(conf)
 }

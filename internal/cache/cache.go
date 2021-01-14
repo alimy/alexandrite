@@ -5,32 +5,19 @@
 package cache
 
 import (
-	"sync"
-
 	"github.com/alimy/hori/dao"
 	"github.com/alimy/hori/internal/conf"
-	"github.com/sirupsen/logrus"
 )
 
 const (
 	keyConfig uint16 = iota
 )
 
-var (
-	cached dao.Cached
-	once   sync.Once
-)
-
-func MyCached() dao.Cached {
-	once.Do(func() {
-		config := conf.MyConfig()
-		switch config.Cache.Type {
-		case "ristretto":
-			cached = newMC()
-		default:
-			cached = newMC()
-		}
-		logrus.Infof("use %s as cached", cached.Whoami())
-	})
-	return cached
+func NewCached(config *conf.Cache) dao.Cached {
+	switch config.Type {
+	case "ristretto":
+		return newMC()
+	default:
+		return newMC()
+	}
 }

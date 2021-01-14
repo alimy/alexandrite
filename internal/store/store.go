@@ -5,28 +5,15 @@
 package store
 
 import (
-	"sync"
-
 	"github.com/alimy/hori/dao"
 	"github.com/alimy/hori/internal/conf"
-	"github.com/sirupsen/logrus"
 )
 
-var (
-	stored dao.Stored
-	once   sync.Once
-)
-
-func MyStored() dao.Stored {
-	once.Do(func() {
-		config := conf.MyConfig()
-		switch config.Store.Type {
-		case "badger":
-			stored = newBS(config.Store.Path)
-		default:
-			stored = newBS(config.Store.Path)
-		}
-		logrus.Infof("use %s as stored", stored.Whoami())
-	})
-	return stored
+func NewStored(config *conf.Store) dao.Stored {
+	switch config.Type {
+	case "badger":
+		return newBS(config.Path)
+	default:
+		return newBS(config.Path)
+	}
 }

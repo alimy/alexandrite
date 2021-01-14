@@ -8,8 +8,7 @@ import (
 	"net/http"
 
 	"github.com/alimy/hori/dao"
-	"github.com/alimy/hori/internal/cache"
-	"github.com/alimy/hori/internal/xorm"
+	"github.com/alimy/hori/internal"
 	"github.com/alimy/hori/mirc/auto/api"
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
@@ -92,7 +91,7 @@ func (f *frontend) RevokeToken(rw http.ResponseWriter, r *http.Request) {
 
 func NewFrontend() api.Frontend {
 	return &frontend{
-		repo:   xorm.MyRepo(),
-		cached: cache.MyCached(),
+		repo:   internal.MyRepo(),
+		cached: internal.MyCached(),
 	}
 }

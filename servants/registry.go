@@ -8,9 +8,7 @@ import (
 	"net/http"
 
 	"github.com/alimy/hori/dao"
-	"github.com/alimy/hori/internal/cache"
-	"github.com/alimy/hori/internal/store"
-	"github.com/alimy/hori/internal/xorm"
+	"github.com/alimy/hori/internal"
 
 	v1 "github.com/alimy/hori/mirc/auto/api/api/v1"
 )
@@ -91,8 +89,8 @@ func (g *registry) DownloadCrate(rw http.ResponseWriter, r *http.Request) {
 
 func NewRegistry() v1.Registry {
 	return &registry{
-		repo:   xorm.MyRepo(),
-		cached: cache.MyCached(),
-		stored: store.MyStored(),
+		repo:   internal.MyRepo(),
+		cached: internal.MyCached(),
+		stored: internal.MyStored(),
 	}
 }

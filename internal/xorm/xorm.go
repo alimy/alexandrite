@@ -5,31 +5,15 @@
 package xorm
 
 import (
-	"sync"
-
 	"github.com/alimy/hori/dao"
 	"github.com/alimy/hori/internal/conf"
 	"github.com/sirupsen/logrus"
 )
 
-var (
-	repo dao.Repository
-	once sync.Once
-)
-
-func MyRepo() dao.Repository {
-	once.Do(func() {
-		var err error
-		config := conf.MyConfig()
-		if config.Runtime.FakeDatabase {
-			repo = fakeDB()
-			return
-		}
-		repo, err = initDB()
-		if err != nil {
-			logrus.Fatal(err)
-		}
-		logrus.Infof("use %s(%s) as repository", repo.Whoami(), config.Database.Type)
-	})
+func NewRepo(config *conf.Database) dao.Repository {
+	repo, err := initDB()
+	if err != nil {
+		logrus.Fatal(err)
+	}
 	return repo
 }

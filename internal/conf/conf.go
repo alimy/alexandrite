@@ -97,8 +97,12 @@ func myRuntimeSection(config *Config, custom *Config, key toml.Key) {
 	switch key[1] {
 	case "run_mode":
 		config.Runtime.RunMode = custom.Runtime.RunMode
-	case "fake_database":
-		config.Runtime.FakeDatabase = custom.Runtime.FakeDatabase
+	case "mock_database":
+		config.Runtime.MockDatabase = custom.Runtime.MockDatabase
+	case "mock_store":
+		config.Runtime.MockStore = custom.Runtime.MockStore
+	case "mock_cache":
+		config.Runtime.MockCache = custom.Runtime.MockCache
 	}
 }
 

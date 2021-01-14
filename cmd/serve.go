@@ -35,10 +35,10 @@ func init() {
 
 func serveRun(cmd *cobra.Command, args []string) {
 	config := serveSetup()
+
 	r := mux.NewRouter()
 	registerServants(r)
 
-	logrus.Debugf("config:%s", config)
 	logrus.Printf("start listening on %s", config.Server.Addr)
 	if err := http.ListenAndServe(config.Server.Addr, r); err != nil {
 		logrus.Fatal(err)
@@ -55,7 +55,9 @@ func registerServants(r *mux.Router) {
 
 func serveSetup() *conf.Config {
 	config := conf.InitWith(inConfigFile)
+	logrus.Debugf("config:%s", config)
+
+	inSetup(config)
 	coreInit(config)
-	inSetup()
 	return config
 }

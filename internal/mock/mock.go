@@ -1,0 +1,19 @@
+// Copyright 2021 Michael Li <alimy@gility.net>. All rights reserved.
+// Use of this source code is governed by Apache License 2.0 that
+// can be found in the LICENSE file.
+
+package mock
+
+import "github.com/alimy/hori/dao"
+
+func NewRepo() dao.Repository {
+	return db{}
+}
+
+func NewCached() dao.Cached {
+	return cache{}
+}
+
+func NewStored() dao.Stored {
+	return store{}
+}

@@ -30,7 +30,9 @@ type Application struct {
 // Runtime indicate runtime section config
 type Runtime struct {
 	RunMode      string `toml:"run_mode"`
-	FakeDatabase bool   `toml:"fake_database"`
+	MockDatabase bool   `toml:"mock_database"`
+	MockStore    bool   `toml:"mock_store"`
+	MockCache    bool   `toml:"mock_cache"`
 }
 
 // Serve indicate server section config
@@ -71,7 +73,11 @@ func (c *Server) String() string {
 }
 
 func (c *Runtime) String() string {
-	return fmt.Sprintf("{run_mode:%q, fake_database:%t}", c.RunMode, c.FakeDatabase)
+	return fmt.Sprintf("{run_mode:%q, mock_database:%t, mock_store:%t, mock_cache:%t}", c.RunMode, c.MockDatabase, c.MockStore, c.MockCache)
+}
+
+func (c *Runtime) InProdMode() bool {
+	return strings.ToLower(c.RunMode) == "prod"
 }
 
 func (c *Database) String() string {

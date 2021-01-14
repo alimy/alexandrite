@@ -6,7 +6,9 @@ description = "alternative rust crate registry"
 [runtime]
 # The running mode of the application, can be either "dev", "prod" or "test".
 run_mode = "dev"
-fake_database = false
+mock_database = false
+mock_store = false
+mock_cache = false
 
 [server]
 addr = ":2020"
