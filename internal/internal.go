@@ -26,21 +26,21 @@ func InitWith(config *conf.Config) {
 	} else {
 		repo = mock.NewRepo()
 	}
-	logrus.Debugf("use %s as database instance", repo.Whoami())
+	logrus.Debugf("use %s as Repository instance", repo.Whoami())
 
 	if !config.Runtime.MockStore {
 		stored = store.NewStored(&config.Store)
 	} else {
 		stored = mock.NewStored()
 	}
-	logrus.Debugf("use %s as store instance", stored.Whoami())
+	logrus.Debugf("use %s as Store instance", stored.Whoami())
 
 	if !config.Runtime.MockCache {
 		cached = cache.NewCached(&config.Cache)
 	} else {
 		cached = mock.NewCached()
 	}
-	logrus.Debugf("use %s as cache instance", cached.Whoami())
+	logrus.Debugf("use %s as Cache instance", cached.Whoami())
 }
 
 func MyRepo() dao.Repository {
