@@ -6,11 +6,9 @@ package assets
 
 import (
 	"embed"
-	"html/template"
 	"net/http"
 
 	"github.com/alimy/embedx"
-	"github.com/alimy/embedx/html"
 )
 
 // DefaultConfig default configure raw data string.
@@ -27,13 +25,4 @@ func NewStaticFS() http.FileSystem {
 	var content embed.FS
 
 	return http.FS(embedx.ChangeRoot(content, "static"))
-}
-
-// NewTemplate new template.Template instance from templates files.
-func NewTemplate() (*template.Template, error) {
-	//go:embed templates
-	var content embed.FS
-
-	embedFS := embedx.ChangeRoot(content, "templates")
-	return html.ParseFS(embedFS, "*.tmpl", "partials/*.tmpl", "account/*.tmpl")
 }

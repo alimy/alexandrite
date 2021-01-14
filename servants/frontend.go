@@ -7,6 +7,7 @@ package servants
 import (
 	"net/http"
 
+	"github.com/alimy/hori/assets"
 	"github.com/alimy/hori/dao"
 	"github.com/alimy/hori/internal"
 	"github.com/alimy/hori/mirc/auto/api"
@@ -15,6 +16,7 @@ import (
 )
 
 type frontend struct {
+	tmpl   assets.Template
 	repo   dao.Repository
 	cached dao.Cached
 }
@@ -91,6 +93,7 @@ func (f *frontend) RevokeToken(rw http.ResponseWriter, r *http.Request) {
 
 func NewFrontend() api.Frontend {
 	return &frontend{
+		tmpl:   assets.NewTemplate(),
 		repo:   internal.MyRepo(),
 		cached: internal.MyCached(),
 	}
