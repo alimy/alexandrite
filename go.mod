@@ -21,4 +21,4 @@ require (
 	gorm.io/gorm v1.20.11
 )
 
-replace github.com/aymerick/raymond/v2 => github.com/alimy/raymond/v2 v2.1.0-beta
+replace github.com/aymerick/raymond/v2 => github.com/alimy/raymond/v2 v2.1.0-beta.1

@@ -42,6 +42,7 @@ func NewTemplate() Template {
 	var content embed.FS
 
 	embedFS := embedx.ChangeRoot(content, "templates")
+	raymond.RegisterNamer(raymond.NamerFunc(utils.PartialName))
 	if err := raymond.RegisterPartialFS(embedFS, "partials/*.hbs"); err != nil {
 		logrus.Fatal(err)
 	}
