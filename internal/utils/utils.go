@@ -7,6 +7,7 @@ package utils
 import (
 	"fmt"
 	"io/fs"
+	"path"
 )
 
 // FileGlob files name in fs.FS that match patterns
@@ -23,4 +24,10 @@ func FileGlob(fsys fs.FS, patterns ...string) ([]string, error) {
 		filenames = append(filenames, list...)
 	}
 	return filenames, nil
+}
+
+// Naming rename template name from filepath
+func Naming(filepath string) string {
+	ext := path.Ext(filepath)
+	return filepath[:len(filepath)-len(ext)]
 }
