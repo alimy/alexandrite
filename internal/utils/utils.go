@@ -7,8 +7,6 @@ package utils
 import (
 	"fmt"
 	"io/fs"
-	"path"
-	"strings"
 )
 
 // FileGlob files name in fs.FS that match patterns
@@ -25,11 +23,4 @@ func FileGlob(fsys fs.FS, patterns ...string) ([]string, error) {
 		filenames = append(filenames, list...)
 	}
 	return filenames, nil
-}
-
-// PartialName returns full base file name without file ext
-// example: /foo/bar/baz.png => foo/bar/baz
-func PartialName(filePath string) string {
-	fileExt := path.Ext(filePath)
-	return strings.TrimLeft(filePath[:len(filePath)-len(fileExt)], "/")
 }

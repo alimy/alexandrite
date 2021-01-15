@@ -8,6 +8,8 @@ import (
 	"embed"
 	"fmt"
 	"io"
+	"path"
+	"strings"
 
 	"github.com/alimy/embedx"
 	"github.com/alimy/hori/internal/utils"
@@ -42,7 +44,11 @@ func NewTemplate() Template {
 	var content embed.FS
 
 	embedFS := embedx.ChangeRoot(content, "templates")
-	raymond.RegisterNamer(raymond.NamerFunc(utils.PartialName))
+	naming := func(filepath string) string {
+		ext := path.Ext(filepath)
+		return strings.TrimLeft(filepath[:len(filepath)-len(ext)], "/")
+	}
+	raymond.RegisterNamer(raymond.NamerFunc(naming))
 	if err := raymond.RegisterPartialFS(embedFS, "partials/*.hbs"); err != nil {
 		logrus.Fatal(err)
 	}
@@ -56,7 +62,7 @@ func NewTemplate() Template {
 		if err != nil {
 			logrus.Fatal(err)
 		}
-		tmpls[utils.PartialName(filename)] = tmpl
+		tmpls[naming(filename)] = tmpl
 	}
 	return &raymondTmpl{
 		tmpls: tmpls,
