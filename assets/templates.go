@@ -15,6 +15,9 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+//go:embed templates
+var tmplFS embed.FS
+
 type Template interface {
 	ExecuteTemplate(wr io.Writer, name string, data interface{}) error
 }
@@ -38,10 +41,7 @@ func (t *raymondTmpl) ExecuteTemplate(w io.Writer, name string, data interface{}
 
 // NewTemplate new template.Template instance from templates files.
 func NewTemplate() Template {
-	//go:embed templates
-	var content embed.FS
-
-	embedFS := embedx.ChangeRoot(content, "templates")
+	embedFS := embedx.ChangeRoot(tmplFS, "templates")
 	raymond.RegisterNamer(raymond.NamerFunc(utils.Naming))
 	if err := raymond.RegisterPartialFS(embedFS, "partials/*.hbs"); err != nil {
 		logrus.Fatal(err)

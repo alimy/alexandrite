@@ -11,18 +11,20 @@ import (
 	"github.com/alimy/embedx"
 )
 
+var (
+	//go:embed conf/app.toml
+	configContent string
+
+	//go:embed static
+	staticFS embed.FS
+)
+
 // DefaultConfig default configure raw data string.
 func DefaultConfig() string {
-	//go:embed conf/app.toml
-	var content string
-
-	return content
+	return configContent
 }
 
 // NewStaticFS make a http.FileSystem instance that contain static files.
 func NewStaticFS() http.FileSystem {
-	//go:embed static
-	var content embed.FS
-
-	return http.FS(embedx.ChangeRoot(content, "static"))
+	return http.FS(embedx.ChangeRoot(staticFS, "static"))
 }
