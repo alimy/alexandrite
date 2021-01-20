@@ -87,7 +87,7 @@ func (g *registry) DownloadCrate(rw http.ResponseWriter, r *http.Request) {
 	// TODO
 }
 
-func NewRegistry() v1.Registry {
+func newRegistry() v1.Registry {
 	return &registry{
 		repo:   internal.MyRepo(),
 		cached: internal.MyCached(),

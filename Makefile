@@ -23,7 +23,7 @@ build: fmt
 
 .PHONY: build
 run:
-	go run -ldflags '$(LDFLAGS)' -tags '$(TAGS)' main.go serve
+	@go run -ldflags '$(LDFLAGS)' -tags '$(TAGS)' main.go serve
 
 .PHONY: generate
 generate:

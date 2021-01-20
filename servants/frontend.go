@@ -91,7 +91,7 @@ func (f *frontend) RevokeToken(rw http.ResponseWriter, r *http.Request) {
 	// TODO
 }
 
-func NewFrontend() api.Frontend {
+func newFrontend() api.Frontend {
 	return &frontend{
 		tmpl:   assets.NewTemplate(),
 		repo:   internal.MyRepo(),
