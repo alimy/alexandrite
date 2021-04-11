@@ -14,6 +14,8 @@ import (
 )
 
 type registry struct {
+	v1.UnimplementedRegistryServant
+
 	repo   dao.Repository
 	cached dao.Cached
 	stored dao.Stored

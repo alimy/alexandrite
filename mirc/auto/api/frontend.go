@@ -32,6 +32,8 @@ type Frontend interface {
 	Password(http.ResponseWriter, *http.Request)
 	Tokens(http.ResponseWriter, *http.Request)
 	RevokeToken(http.ResponseWriter, *http.Request)
+
+	mustEmbedUnimplementedFrontendServant()
 }
 
 // RegisterFrontendServant register Frontend servant to mux
@@ -74,3 +76,88 @@ func RegisterFrontendServant(r *mux.Router, s Frontend) {
 	router.HandleFunc("/account/manage/tokens/{token-id}/revoke", s.RevokeToken).
 		Methods("GET")
 }
+
+// UnimplementedFrontendServant can be embedded to have forward compatible implementations.
+type UnimplementedFrontendServant struct {
+}
+
+func (UnimplementedFrontendServant) Chain() []mux.MiddlewareFunc {
+	return nil
+}
+
+func (UnimplementedFrontendServant) Index(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Index not implemented"))
+}
+
+func (UnimplementedFrontendServant) Me(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Me not implemented"))
+}
+
+func (UnimplementedFrontendServant) Search(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Search not implemented"))
+}
+
+func (UnimplementedFrontendServant) MostDownloaded(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method MostDownloaded not implemented"))
+}
+
+func (UnimplementedFrontendServant) LastUpdated(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method LastUpdated not implemented"))
+}
+
+func (UnimplementedFrontendServant) Crate(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Crate not implemented"))
+}
+
+func (UnimplementedFrontendServant) Login(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Login not implemented"))
+}
+
+func (UnimplementedFrontendServant) LoginPost(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method LoginPost not implemented"))
+}
+
+func (UnimplementedFrontendServant) Logout(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Logout not implemented"))
+}
+
+func (UnimplementedFrontendServant) Register(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Register not implemented"))
+}
+
+func (UnimplementedFrontendServant) RegisterPost(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method RegisterPost not implemented"))
+}
+
+func (UnimplementedFrontendServant) Manage(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Manage not implemented"))
+}
+
+func (UnimplementedFrontendServant) Password(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Password not implemented"))
+}
+
+func (UnimplementedFrontendServant) Tokens(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Tokens not implemented"))
+}
+
+func (UnimplementedFrontendServant) RevokeToken(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method RevokeToken not implemented"))
+}
+
+func (UnimplementedFrontendServant) mustEmbedUnimplementedFrontendServant() {}

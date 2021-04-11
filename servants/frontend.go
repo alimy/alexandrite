@@ -16,6 +16,8 @@ import (
 )
 
 type frontend struct {
+	api.UnimplementedFrontendServant
+
 	tmpl   assets.Template
 	repo   dao.Repository
 	cached dao.Cached

@@ -2,6 +2,7 @@
 // Use of this source code is governed by Apache License 2.0 that
 // can be found in the LICENSE file.
 
+//go:build !jsoniter
 // +build !jsoniter
 
 package json

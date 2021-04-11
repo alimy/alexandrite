@@ -6,7 +6,7 @@ require (
 	github.com/BurntSushi/toml v0.3.1
 	github.com/Masterminds/semver/v3 v3.1.1
 	github.com/alimy/embedx v0.5.1
-	github.com/alimy/mir/v2 v2.6.1
+	github.com/alimy/mir/v2 v2.7.1
 	github.com/aymerick/raymond/v2 v2.0.0-00010101000000-000000000000
 	github.com/dgraph-io/badger/v2 v2.2007.2
 	github.com/dgraph-io/ristretto v0.0.3

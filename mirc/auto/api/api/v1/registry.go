@@ -31,6 +31,8 @@ type Registry interface {
 	YankCrate(http.ResponseWriter, *http.Request)
 	UnyankCrate(http.ResponseWriter, *http.Request)
 	DownloadCrate(http.ResponseWriter, *http.Request)
+
+	mustEmbedUnimplementedRegistryServant()
 }
 
 // RegisterRegistryServant register Registry servant to mux
@@ -73,3 +75,94 @@ func RegisterRegistryServant(r *mux.Router, s Registry) {
 	router.HandleFunc("crates/{name}/{version}/download", s.DownloadCrate).
 		Methods("GET")
 }
+
+// UnimplementedRegistryServant can be embedded to have forward compatible implementations.
+type UnimplementedRegistryServant struct {
+}
+
+func (UnimplementedRegistryServant) Register(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Register not implemented"))
+}
+
+func (UnimplementedRegistryServant) Login(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Login not implemented"))
+}
+
+func (UnimplementedRegistryServant) TokensInfo(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method TokensInfo not implemented"))
+}
+
+func (UnimplementedRegistryServant) GenerateTokens(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method GenerateTokens not implemented"))
+}
+
+func (UnimplementedRegistryServant) RevokeTokens(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method RevokeTokens not implemented"))
+}
+
+func (UnimplementedRegistryServant) TokenByName(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method TokenByName not implemented"))
+}
+
+func (UnimplementedRegistryServant) Categories(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method Categories not implemented"))
+}
+
+func (UnimplementedRegistryServant) SearchCrates(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method SearchCrates not implemented"))
+}
+
+func (UnimplementedRegistryServant) PublishCrates(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method PublishCrates not implemented"))
+}
+
+func (UnimplementedRegistryServant) SuggestCrates(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method SuggestCrates not implemented"))
+}
+
+func (UnimplementedRegistryServant) CrateInfo(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method CrateInfo not implemented"))
+}
+
+func (UnimplementedRegistryServant) CrateOwnersInfo(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method CrateOwnersInfo not implemented"))
+}
+
+func (UnimplementedRegistryServant) PutCrateOwners(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method PutCrateOwners not implemented"))
+}
+
+func (UnimplementedRegistryServant) DelCrateOwners(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method DelCrateOwners not implemented"))
+}
+
+func (UnimplementedRegistryServant) YankCrate(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method YankCrate not implemented"))
+}
+
+func (UnimplementedRegistryServant) UnyankCrate(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method UnyankCrate not implemented"))
+}
+
+func (UnimplementedRegistryServant) DownloadCrate(rw http.ResponseWriter, r *http.Request) {
+	rw.WriteHeader(http.StatusNotImplemented)
+	rw.Write([]byte("method DownloadCrate not implemented"))
+}
+
+func (UnimplementedRegistryServant) mustEmbedUnimplementedRegistryServant() {}
